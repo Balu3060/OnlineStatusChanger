@@ -14,8 +14,11 @@ jobs:
     - name: Download BakkesMod SDK
       run: git clone https://github.com/bakkesmodorg/BakkesModSDK.git
 
+    - name: Download ImGui
+      run: git clone --depth 1 --branch v1.88 https://github.com/ocornut/imgui.git BakkesModSDK/include/imgui
+
     - name: Configure CMake
-      run: cmake -B build -S .
+      run: cmake -B build -S . -A x64
 
     - name: Build Plugin
       run: cmake --build build --config Release
