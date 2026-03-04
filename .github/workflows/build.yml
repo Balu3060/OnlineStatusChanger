@@ -11,14 +11,17 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v2
+    - name: Download BakkesMod SDK
+      run: git clone https://github.com/bakkesmodorg/BakkesModSDK.git
+
+    - name: Configure CMake
+      run: cmake -B build -S .
 
     - name: Build Plugin
-      run: msbuild OnlineStatusChanger.sln /p:Configuration=Release /p:Platform=x64
+      run: cmake --build build --config Release
 
     - name: Upload DLL Artifact
       uses: actions/upload-artifact@v4
       with:
         name: OnlineStatusChanger-DLL
-        path: x64/Release/OnlineStatusChanger.dll
+        path: build/Release/OnlineStatusChanger.dll
