@@ -26,5 +26,5 @@ jobs:
     - name: Upload DLL Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: OnlineStatusChanger-DLL
-        path: build/Release/OnlineStatusChanger.dll
+        name: StatusOverrider-DLL
+        path: build/Release/StatusOverrider.dll
