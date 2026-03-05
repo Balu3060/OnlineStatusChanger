@@ -129,6 +129,14 @@ void StatusOverrider::Render(CanvasWrapper canvas)
     float scale = cvarManager->getCvar("mmr_scale").getFloatValue();
     int opacity = cvarManager->getCvar("mmr_opacity").getIntValue();
 
+    // Auto-correction: keeps the box inside the screen
+    if (x + boxW > screenRes.X) x = screenRes.X - boxW;
+    if (y + boxH > screenRes.Y) y = screenRes.Y - boxH;
+    if (x < 0) x = 0;
+    if (y < 0) y = 0;
+
+    canvas.SetPosition(Vector2{x, y});
+
     // Prevent the box from being dragged completely off-screen
     if (x > screenRes.X) x = screenRes.X - (int)(200 * scale);
     if (y > screenRes.Y) y = screenRes.Y - (int)(150 * scale);
@@ -167,6 +175,7 @@ void StatusOverrider::Render(CanvasWrapper canvas)
     }
     canvas.DrawString(mmrText, scale, scale);
 }
+
 
 
 
