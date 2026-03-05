@@ -209,3 +209,4 @@ void baluPlugin::Render(CanvasWrapper canvas)
     canvas.DrawString(mmrText, scale, scale);
 }
 
+
