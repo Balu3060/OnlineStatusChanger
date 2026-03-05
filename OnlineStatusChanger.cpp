@@ -6,6 +6,7 @@ void StatusOverrider::onLoad()
 {
     cvarManager->registerCvar("cl_status_enable", "1", "Enable Status Overrider", true, true, 0, true, 1);
     cvarManager->registerCvar("cl_status_override", "0", "Override Status", true, true, 0, true, 3);
+    cvarManager->registerCvar("cl_status_string", "Custom Status", "Custom Text Status", true, false, 0, false, 0);
 }
 
 void StatusOverrider::onUnload() {}
