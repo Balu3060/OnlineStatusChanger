@@ -25,6 +25,6 @@ jobs:
 
     - name: Upload DLL Artifact
     - uses: actions/upload-artifact@v4
-    with:
-      name: baluPlugin
-      path: build/Release/baluPlugin.dll
+      with:
+        name: baluPlugin
+        path: build/Release/baluPlugin.dll
