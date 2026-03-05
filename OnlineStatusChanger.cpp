@@ -28,9 +28,17 @@ void StatusOverrider::onUnload()
 
 void StatusOverrider::SaveData()
 {
-    if (!cvarManager->getCvar("mmr_save_progress").getBoolValue()) return;
-    
     std::filesystem::path saveFile = gameWrapper->GetDataFolder() / "mmr_tracker_save.txt";
+    
+    if (!cvarManager->getCvar("mmr_save_progress").getBoolValue()) {
+        if (std::filesystem::exists(saveFile)) {
+            std::filesystem::remove(saveFile);
+        }
+        stats = {0, 0, 0};
+        sessionMMRChange = 0.0f;
+        return;
+    }
+    
     std::ofstream out(saveFile);
     if (out.is_open()) {
         out << stats.totalWins << " " << stats.totalLosses << " " << stats.streak << " " << sessionMMRChange;
@@ -40,6 +48,8 @@ void StatusOverrider::SaveData()
 
 void StatusOverrider::LoadData()
 {
+    if (!cvarManager->getCvar("mmr_save_progress").getBoolValue()) return;
+
     std::filesystem::path saveFile = gameWrapper->GetDataFolder() / "mmr_tracker_save.txt";
     std::ifstream in(saveFile);
     if (in.is_open()) {
@@ -144,4 +154,5 @@ void StatusOverrider::Render(CanvasWrapper canvas)
     }
     canvas.DrawString(mmrText, scale, scale);
 }
+
 
