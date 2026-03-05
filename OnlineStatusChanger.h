@@ -1,7 +1,6 @@
 #pragma once
 #include "bakkesmod/plugin/bakkesmodplugin.h"
-#include "bakkesmod/plugin/pluginwindow.h"
-#include "bakkesmod/wrappers/GameObject/StatsWrapper.h"
+#include "bakkesmod/wrappers/includes.h"
 
 class StatusOverrider : public BakkesMod::Plugin::BakkesModPlugin
 {
