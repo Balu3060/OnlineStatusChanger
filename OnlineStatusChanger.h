@@ -9,16 +9,17 @@ public:
     virtual void onUnload() override;
 
     void OnMatchEnd(std::string eventName);
+    void OnMatchStart(std::string eventName);
+    void UpdateMMR();
     void Render(CanvasWrapper canvas);
 
 private:
-    int sessionStartMMR = -1;
-    int currentMMR = -1;
+    float lastKnownMMR = -1.0f;
+    float sessionMMRChange = 0.0f;
     
     struct MMRData {
         int totalWins = 0;
         int totalLosses = 0;
         int streak = 0;
-        int savedMMR = 0;
     } stats;
 };
