@@ -1,6 +1,7 @@
 #pragma once
 #include "bakkesmod/plugin/bakkesmodplugin.h"
 #include "bakkesmod/wrappers/includes.h"
+#include <filesystem>
 
 class StatusOverrider : public BakkesMod::Plugin::BakkesModPlugin
 {
@@ -12,6 +13,8 @@ public:
     void UpdateMMR();
     void PollMMR();
     void Render(CanvasWrapper canvas);
+    void SaveData();
+    void LoadData();
 
 private:
     float lastKnownMMR = -1.0f;
