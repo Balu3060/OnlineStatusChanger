@@ -1,4 +1,5 @@
 Status Overrider
 9|Status Overrider Plugin
 1|Enable Plugin|cl_status_enable
-8|Status (0=Off, 1=On, 2=Away, 3=Inv)|cl_status_override|0|3
+8|Status (0-3)|cl_status_override|0|3
+5|Custom Text|cl_status_string
