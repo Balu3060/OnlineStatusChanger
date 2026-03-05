@@ -3,7 +3,7 @@
 #include "bakkesmod/wrappers/includes.h"
 #include <filesystem>
 
-class StatusOverrider : public BakkesMod::Plugin::BakkesModPlugin
+class baluPlugin : public BakkesMod::Plugin::BakkesModPlugin
 {
 public:
     virtual void onLoad() override;
@@ -27,3 +27,4 @@ private:
         int streak = 0;
     } stats;
 };
+
