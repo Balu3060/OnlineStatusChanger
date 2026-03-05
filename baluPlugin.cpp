@@ -54,8 +54,6 @@ void baluPlugin::SaveData()
 
 void baluPlugin::LoadData()
 {
-    if (!cvarManager->getCvar("mmr_save_progress").getBoolValue()) return;
-
     std::filesystem::path saveFile = gameWrapper->GetDataFolder() / "mmr_tracker_save.txt";
     std::ifstream in(saveFile);
     if (in.is_open()) {
@@ -177,5 +175,6 @@ void baluPlugin::Render(CanvasWrapper canvas)
     }
     canvas.DrawString(mmrText, scale, scale);
 }
+
 
 
