@@ -1,4 +1,4 @@
-#include "OnlineStatusChanger.h"
+#include "baluPlugin.h"
 #include <cstdio>
 #include <fstream>
 
@@ -177,3 +177,4 @@ void StatusOverrider::Render(CanvasWrapper canvas)
     }
     canvas.DrawString(mmrText, scale, scale);
 }
+
