@@ -1,2 +1,2 @@
-# OnlineStatusChanger
-Online Status Changer for Rocket League
+# baluPlugin
+MMR Tracker for Rocket League
