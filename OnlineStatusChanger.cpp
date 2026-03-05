@@ -124,10 +124,14 @@ void StatusOverrider::Render(CanvasWrapper canvas)
     if (!cvarManager->getCvar("mmr_enabled").getBoolValue()) return;
 
     Vector2 screenRes = canvas.GetSize();
+    float scale = cvarManager->getCvar("mmr_scale").getFloatValue();
     int x = cvarManager->getCvar("mmr_x_pos").getIntValue();
     int y = cvarManager->getCvar("mmr_y_pos").getIntValue();
-    float scale = cvarManager->getCvar("mmr_scale").getFloatValue();
     int opacity = cvarManager->getCvar("mmr_opacity").getIntValue();
+
+    // Define box dimensions once
+    int boxW = (int)(200 * scale);
+    int boxH = (int)(150 * scale);
 
     // Auto-correction: keeps the box inside the screen
     if (x + boxW > screenRes.X) x = screenRes.X - boxW;
@@ -135,36 +139,34 @@ void StatusOverrider::Render(CanvasWrapper canvas)
     if (x < 0) x = 0;
     if (y < 0) y = 0;
 
-    canvas.SetPosition(Vector2{x, y});
-
-    // Prevent the box from being dragged completely off-screen
-    if (x > screenRes.X) x = screenRes.X - (int)(200 * scale);
-    if (y > screenRes.Y) y = screenRes.Y - (int)(150 * scale);
-
+    // Draw Background
     canvas.SetPosition(Vector2{x, y});
     canvas.SetColor(0, 0, 0, (char)opacity);
-    canvas.FillBox(Vector2{(int)(200 * scale), (int)(150 * scale)});
+    canvas.FillBox(Vector2{boxW, boxH});
 
-    // ... rest of your drawing code remains the same ...
-
+    // Header
     canvas.SetPosition(Vector2{x + (int)(10 * scale), y + (int)(10 * scale)});
     canvas.SetColor(255, 255, 255, 255);
     canvas.DrawString("MMR Tracker By Baluuu._.", scale, scale);
 
+    // Streak
     canvas.SetPosition(Vector2{x + (int)(10 * scale), y + (int)(40 * scale)});
     if (stats.streak > 0) canvas.SetColor(0, 255, 0, 255);
     else if (stats.streak < 0) canvas.SetColor(255, 0, 0, 255);
     else canvas.SetColor(255, 255, 255, 255);
     canvas.DrawString("Streak: " + std::to_string(stats.streak), scale, scale);
 
+    // Wins
     canvas.SetPosition(Vector2{x + (int)(10 * scale), y + (int)(70 * scale)});
     canvas.SetColor(0, 150, 255, 255);
     canvas.DrawString("Wins: " + std::to_string(stats.totalWins), scale, scale);
 
+    // Losses
     canvas.SetPosition(Vector2{x + (int)(10 * scale), y + (int)(95 * scale)});
     canvas.SetColor(255, 50, 50, 255);
     canvas.DrawString("Losses: " + std::to_string(stats.totalLosses), scale, scale);
 
+    // Session MMR (Blue)
     canvas.SetPosition(Vector2{x + (int)(10 * scale), y + (int)(120 * scale)});
     canvas.SetColor(0, 150, 255, 255);
     char mmrText[64];
@@ -175,8 +177,3 @@ void StatusOverrider::Render(CanvasWrapper canvas)
     }
     canvas.DrawString(mmrText, scale, scale);
 }
-
-
-
-
-
