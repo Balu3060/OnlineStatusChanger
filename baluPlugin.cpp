@@ -9,11 +9,11 @@ void baluPlugin::onLoad()
 {
     cvarManager->registerCvar("mmr_enabled", "1", "", true, true, 0, true, 1);
     cvarManager->registerCvar("mmr_save_progress", "0", "", true, true, 0, true, 1);
-    cvarManager->registerCvar("mmr_x_pos", "100", "", true, true, 0, false, 0);
-    cvarManager->registerCvar("mmr_y_pos", "100", "", true, true, 0, false, 0);
-    cvarManager->registerCvar("mmr_scale", "1.0", "", true, true, 0.5, true, 5.0);
+    cvarManager->registerCvar("mmr_x_pos", "100", "", true, true, 0, true, 4000);
+    cvarManager->registerCvar("mmr_y_pos", "100", "", true, true, 0, true, 4000);
+    cvarManager->registerCvar("mmr_scale", "1.0", "", true, true, 0.5f, true, 5.0f);
     cvarManager->registerCvar("mmr_opacity", "150", "", true, true, 0, true, 255);
-    cvarManager->registerCvar("mmr_display_mode", "11", "", true, false, 0, false, 0);
+    cvarManager->registerCvar("mmr_display_mode", "11", "", true, true, 0, true, 100);
 
     cvarManager->registerNotifier("mmr_reset_pos", [this](std::vector<std::string> args) {
         cvarManager->getCvar("mmr_x_pos").setValue(100);
@@ -208,3 +208,4 @@ void baluPlugin::Render(CanvasWrapper canvas)
     }
     canvas.DrawString(mmrText, scale, scale);
 }
+
