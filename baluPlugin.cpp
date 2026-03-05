@@ -2,11 +2,11 @@
 #include <cstdio>
 #include <fstream>
 
-BAKKESMOD_PLUGIN(StatusOverrider, "MMR tracker By Baluuu._.", "1.0", 0)
+BAKKESMOD_PLUGIN(baluPlugin, "MMR tracker By Baluuu._.", "1.0", 0)
 
     
 
-void StatusOverrider::onLoad()
+void baluPlugin::onLoad()
 {
     cvarManager->registerCvar("mmr_enabled", "1", "", true, true, 0, true, 1);
     cvarManager->registerCvar("mmr_save_progress", "0", "", true, true, 0, true, 1);
@@ -20,19 +20,19 @@ void StatusOverrider::onLoad()
         cvarManager->getCvar("mmr_y_pos").setValue(100);
     }, "Resets tracker position to default", PERMISSION_ALL);
     
-    gameWrapper->HookEvent("Function TAGame.GameEvent_Soccar_TA.EventMatchEnded", std::bind(&StatusOverrider::OnMatchEnd, this, std::placeholders::_1));
-    gameWrapper->RegisterDrawable(std::bind(&StatusOverrider::Render, this, std::placeholders::_1));
+    gameWrapper->HookEvent("Function TAGame.GameEvent_Soccar_TA.EventMatchEnded", std::bind(&baluPlugin::OnMatchEnd, this, std::placeholders::_1));
+    gameWrapper->RegisterDrawable(std::bind(&baluPlugin::Render, this, std::placeholders::_1));
 
     LoadData();
     PollMMR();
 }
 
-void StatusOverrider::onUnload()
+void baluPlugin::onUnload()
 {
     SaveData();
 }
 
-void StatusOverrider::SaveData()
+void baluPlugin::SaveData()
 {
     std::filesystem::path saveFile = gameWrapper->GetDataFolder() / "mmr_tracker_save.txt";
     
@@ -52,7 +52,7 @@ void StatusOverrider::SaveData()
     }
 }
 
-void StatusOverrider::LoadData()
+void baluPlugin::LoadData()
 {
     if (!cvarManager->getCvar("mmr_save_progress").getBoolValue()) return;
 
@@ -64,7 +64,7 @@ void StatusOverrider::LoadData()
     }
 }
 
-void StatusOverrider::PollMMR()
+void baluPlugin::PollMMR()
 {
     UpdateMMR();
     gameWrapper->SetTimeout([this](GameWrapper* gw) {
@@ -72,7 +72,7 @@ void StatusOverrider::PollMMR()
     }, 2.0f);
 }
 
-void StatusOverrider::OnMatchEnd(std::string eventName)
+void baluPlugin::OnMatchEnd(std::string eventName)
 {
     ServerWrapper server = gameWrapper->GetCurrentGameState();
     if (!server) return;
@@ -97,7 +97,7 @@ void StatusOverrider::OnMatchEnd(std::string eventName)
     SaveData();
 }
 
-void StatusOverrider::UpdateMMR()
+void baluPlugin::UpdateMMR()
 {
     MMRWrapper mmrWrapper = gameWrapper->GetMMRWrapper();
     int playlist = mmrWrapper.GetCurrentPlaylist();
@@ -119,7 +119,7 @@ void StatusOverrider::UpdateMMR()
     }
 }
 
-void StatusOverrider::Render(CanvasWrapper canvas)
+void baluPlugin::Render(CanvasWrapper canvas)
 {
     if (!cvarManager->getCvar("mmr_enabled").getBoolValue()) return;
 
@@ -177,4 +177,5 @@ void StatusOverrider::Render(CanvasWrapper canvas)
     }
     canvas.DrawString(mmrText, scale, scale);
 }
+
 
