@@ -38,3 +38,35 @@ void StatusOverrider::OnMatchEnd(std::string eventName)
 }
 
 void StatusOverrider::onUnload() {}
+
+void StatusOverrider::Render(CanvasWrapper canvas)
+{
+    if (!cvarManager->getCvar("mmr_enabled").getBoolValue()) return;
+
+    int x = cvarManager->getCvar("mmr_x_pos").getIntValue();
+    int y = cvarManager->getCvar("mmr_y_pos").getIntValue();
+    float scale = cvarManager->getCvar("mmr_scale").getFloatValue();
+    int opacity = cvarManager->getCvar("mmr_opacity").getIntValue();
+
+    canvas.SetPosition(Vector2{x, y});
+    canvas.SetColor(0, 0, 0, (char)opacity);
+    canvas.FillBox(Vector2{(int)(200 * scale), (int)(120 * scale)});
+
+    canvas.SetPosition(Vector2{x + (int)(10 * scale), y + (int)(10 * scale)});
+    canvas.SetColor(255, 255, 255, 255);
+    canvas.DrawString("MMR Tracker By Baluuu._.", scale, scale);
+
+    canvas.SetPosition(Vector2{x + (int)(10 * scale), y + (int)(40 * scale)});
+    if (stats.streak > 0) canvas.SetColor(0, 255, 0, 255);
+    else if (stats.streak < 0) canvas.SetColor(255, 0, 0, 255);
+    else canvas.SetColor(255, 255, 255, 255);
+    canvas.DrawString("Streak: " + std::to_string(stats.streak), scale, scale);
+
+    canvas.SetPosition(Vector2{x + (int)(10 * scale), y + (int)(70 * scale)});
+    canvas.SetColor(0, 150, 255, 255);
+    canvas.DrawString("Wins: " + std::to_string(stats.totalWins), scale, scale);
+
+    canvas.SetPosition(Vector2{x + (int)(10 * scale), y + (int)(95 * scale)});
+    canvas.SetColor(255, 50, 50, 255);
+    canvas.DrawString("Losses: " + std::to_string(stats.totalLosses), scale, scale);
+}
