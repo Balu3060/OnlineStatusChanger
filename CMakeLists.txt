@@ -21,3 +21,6 @@ add_library(${PROJECT_NAME} SHARED
 
 # Link the BakkesMod plugin SDK
 target_link_libraries(${PROJECT_NAME} pluginsdk)
+
+project(StatusOverrider)
+add_library(${PROJECT_NAME} SHARED OnlineStatusChanger.cpp OnlineStatusChangerSettings.cpp ${IMGUI_SOURCES})
