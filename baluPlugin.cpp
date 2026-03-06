@@ -274,7 +274,7 @@ float baluPlugin::GetMMRNeededForNextRank(int playlist, float currentMMR) {
     }
     return -1.0f;
 }
-}
+
 
 
 
