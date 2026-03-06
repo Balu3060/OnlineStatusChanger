@@ -27,8 +27,11 @@ private:
         float lastKnownMMR = -1.0f;
     };
 
+    float GetMMRNeededForNextRank(int playlist, float currentMMR);
+
     std::map<int, MMRData> playlistStats;
     int currentPlaylist = 0;
 
     std::string GetPlaylistName(int id);
 };
+
