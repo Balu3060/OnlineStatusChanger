@@ -166,7 +166,7 @@ void baluPlugin::Render(CanvasWrapper canvas)
     int opacity = cvarManager->getCvar("mmr_opacity").getIntValue();
 
     int boxW = (int)(250 * scale);
-    int boxH = (int)(180 * scale);
+    int boxH = (int)(200 * scale);
 
     if (x + boxW > screenRes.X) x = screenRes.X - boxW;
     if (y + boxH > screenRes.Y) y = screenRes.Y - boxH;
@@ -209,6 +209,7 @@ void baluPlugin::Render(CanvasWrapper canvas)
     }
     canvas.DrawString(mmrText, scale, scale);
 }
+
 
 
 
